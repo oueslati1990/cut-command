@@ -11,7 +11,7 @@ def main():
         description="ccut command"
     )
 
-    parser.add_argument('filename', action="store_true",
+    parser.add_argument('filename', nargs='?', default=None,
                         help="filename to read")
     parser.add_argument('-f2', action="store_true",
                         help="Returns only the second field of the line")
@@ -33,7 +33,11 @@ def main():
     except IOError as e:
         print(f'An IO error occured : {e}')
 
-    
+    lines = content.rstrip().split('\n')
+    if args.f2:
+        output = "\n".join([l.split()[1] for l in lines])
+        print(output)
+
 
     
 
