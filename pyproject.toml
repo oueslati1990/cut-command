@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ccut"
+version = "0.1.0"
+description = "A Python implementation of the Unix cut command"
+readme = "README.md"
+requires-python = ">=3.7"
+license = {text = "MIT"}
+authors = [
+    {name = "Mohamed Oueslati", email = "eng.oueslati.mohamed@gmail.com"}
+]
+
+[project.scripts]
+muniq = "ccut:main"
