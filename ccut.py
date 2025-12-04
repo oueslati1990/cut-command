@@ -35,23 +35,28 @@ def main():
     except IOError as e:
         print(f'An IO error occured : {e}', file=sys.stderr)
     
-    delimiter = args.delimiter
+    if not args.fields:
+      print("ccut: you must specify a list of fields with -f", file=sys.stderr)
+      sys.exit(1)
+
     fields = []
-    if args.fields.find(",") != -1:
+    if "," in args.fields:
         fields = args.fields.split(',')
-    elif args.fields.find(" ") != -1:
+    elif " " in args.fields:
         fields = args.fields.split()
+    else:
+          fields = [args.fields]
     
     lines = content.rstrip().split('\n')
-    if fields:
-        output = ""
-        for l in lines:
-            line_output = ""
-            for field in fields:
-                line_output += f"{l.split(delimiter)[int(field)]}\t"
-            output += f"{line_output}\n"
+    
+    output = ""
+    for l in lines:
+        line_output = ""
+        for field in fields:
+            line_output += f"{l.split(args.delimiter)[int(field)]}{args.delimiter}"
+        output += f"{line_output}\n"
 
-        print(output, file=sys.stdout)
+    print(output, file=sys.stdout)
 
 
 if __name__ == '__main__':
